@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import { ThemeProvider } from "@/components/ThemeProvider/ThemeProvider";
 import "@/styles/globals.css";
 import { Router } from "next/router";
 import NProgress from 'nprogress';
@@ -17,8 +18,8 @@ Router.events.on('routeChangeError', () => {
 });
 
 export default function App({ Component, pageProps }) {
-  return <>
+  return <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
   <Navbar />
   <Component {...pageProps} />
-  </>;
+  </ThemeProvider>;
 }

@@ -1,10 +1,14 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
+import blogstyles from "@/styles/Blog.module.css";
+import { getBlogData } from "@/lib/getBlogData";
+import Link from "next/link";
 
-import Blog from "./blog";
+export default function Home({ blogs }) {
+  const allBlogs = blogs?.blogs || [];
+  const limitedBlogs = allBlogs.slice(0, 3); // ✅ Show only first 3 blogs
 
-export default function Home() {
   return (
     <>
       <Head>
@@ -26,18 +30,40 @@ export default function Home() {
           />
         </div>
         
-        <h1 className={styles.title}>
-          Hunting Coder
-        </h1>
+        <h1 className={styles.title}>Hunting Coder</h1>
         
         <p className={styles.subtitle}>
           Exploring the world of code, one bug at a time.
         </p>
         
         <div className={styles.blogContainer}>
-          {/* <Blog /> Correctly pass blogs here */}
+          <h2 className={blogstyles.heading}>Recent Blogs</h2>
+          <div className={blogstyles.grid}>
+            {limitedBlogs.length > 0 ? (
+              limitedBlogs.map((e, i) => (
+                <Link key={i} href={`/blogpost/${e.slug}`} className={blogstyles.card}>
+                  <h3>{e.title}</h3>
+                  <p>{e.excerpt}</p>
+                  <span className={blogstyles.meta}>
+                    📅 {e.date} • ⏱ {e.readTime}
+                  </span>
+                </Link>
+              ))
+            ) : (
+              <p>No blogs found.</p>
+            )}
+          </div>
         </div>
       </main>
     </>
   );
+}
+
+export async function getStaticProps() {
+  const blogs = await getBlogData();
+  return {
+    props: {
+      blogs,
+    },
+  };
 }

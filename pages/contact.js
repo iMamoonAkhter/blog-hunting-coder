@@ -67,9 +67,7 @@ const Contact = () => {
             onChange={handleChange}
             required
           />
-          <div className={styles.helpText}>
-            We'll never share your email with anyone else.
-          </div>
+          
         </div>
 
         {/* Phone Field */}

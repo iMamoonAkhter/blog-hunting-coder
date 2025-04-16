@@ -1,11 +1,16 @@
 .mainnav {
-    background-color: #1a1a1a;
-    padding: 1rem 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
+  background-color: #1a1a1a;
+  padding: 1rem 2rem;
+  position: fixed; /* Changed from sticky to fixed */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
   
   .mainnav ul {
     display: flex;

@@ -1,77 +1,75 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/styles/Blog.module.css";
 import Link from "next/link";
-import path from "path";
-import { promises as fs } from "fs";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { getBlogData } from "@/lib/getBlogData"; // ✅ Imported utility
 
 const Blog = ({ blogs }) => {
-  const [blogList, setBlogList] = React.useState([]);
+  const allBlogs = blogs?.blogs || [];
+  const pageSize = 4;
+
+  const [blogList, setBlogList] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   useEffect(() => {
-    setBlogList(blogs?.blogs || []);
-  }, [blogs]);
+    const initialBlogs = allBlogs.slice(0, pageSize);
+    setBlogList(initialBlogs);
+    setCurrentIndex(pageSize);
+  }, [blogs]); // ✅ Use blogs as the dependency
+
+  const fetchData = () => {
+    const nextBlogs = allBlogs.slice(currentIndex, currentIndex + pageSize);
+    setBlogList((prev) => [...prev, ...nextBlogs]);
+    setCurrentIndex((prev) => prev + pageSize);
+
+    if (currentIndex + pageSize >= allBlogs.length) {
+      setHasMore(false);
+    }
+  };
 
   return (
     <div className={styles.container}>
       <h2 className={styles.heading}>Latest Blogs</h2>
-      <div className={styles.grid}>
-        {blogList.length > 0 ? (
-          blogList.map((e, i) => (
-            <Link key={i} href={`/blogpost/${e.slug}`} className={styles.card}>
-              <h3>{e.title}</h3>
-              <p>{e.excerpt}</p>
-              <span className={styles.meta}>
-                📅 {e.date} • ⏱ {e.readTime}
-              </span>
-            </Link>
-          ))
-        ) : (
-          <p>No blogs found.</p>
-        )}
-      </div>
+
+      <InfiniteScroll
+        dataLength={blogList.length}
+        next={fetchData}
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+        endMessage={
+          <p style={{ textAlign: "center" }}>
+            <b>The End! More Blogs Coming Soon!</b>
+          </p>
+        }
+      >
+        <div className={styles.grid}>
+          {blogList.length > 0 ? (
+            blogList.map((e, i) => (
+              <Link key={i} href={`/blogpost/${e.slug}`} className={styles.card}>
+                <h3>{e.title}</h3>
+                <p>{e.excerpt}</p>
+                <span className={styles.meta}>
+                  📅 {e.date} • ⏱ {e.readTime}
+                </span>
+              </Link>
+            ))
+          ) : (
+            <p>No blogs found.</p>
+          )}
+        </div>
+      </InfiniteScroll>
     </div>
   );
 };
 
 export async function getStaticProps() {
-  try {
-    const jsonDirectory = path.join(process.cwd(), "data");
-    const fileContents = await fs.readFile(
-      path.join(jsonDirectory, "blog.json"),
-      "utf8"
-    );
-    const data = JSON.parse(fileContents);
-
-    return {
-      props: {
-        blogs: data,
-      },
-    };
-  } catch (error) {
-    console.error("Error loading blogs:", error);
-    return {
-      props: {
-        blogs: [],
-      },
-    };
-  }
+  const blogs = await getBlogData(); // ✅ Use shared utility
+  return {
+    props: {
+      blogs,
+    },
+  };
 }
 
 export default Blog;
-
-
-
-// export async function getServerSideProps(context){
-//   try {
-//     let res = await axios.get("http://localhost:3000/api/blogs")
-  
-//   return {
-//     props: {
-//       blogs: res.data,
-//     }
-//   }
-//   } catch (error) {
-//     props: {
-//       blogs: []
-//     }
-//   }
-// }

@@ -7,6 +7,7 @@ export default async function handler(req, res) {
     const jsonDirectory = path.join(process.cwd(), 'data');
     const fileContents = await fs.readFile(jsonDirectory + '/blog.json', 'utf8');
     
+    
     // 2. Directly parse the JSON (no need for double stringify/parse)
     const data = JSON.parse(fileContents);
     

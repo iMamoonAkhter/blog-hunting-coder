@@ -14,12 +14,10 @@
     font-size: 2.5rem;
     font-weight: 800;
     line-height: 1.2;
-    color: #b60303;
     margin-bottom: 1.5rem;
   }
   .errorContainer span{
     font-size: 1.2rem;
-    color: #4a5568;
     font-weight: 500;
   }
  
@@ -27,7 +25,6 @@
     font-size: 2.5rem;
     font-weight: 800;
     line-height: 1.2;
-    color: #1a202c;
     margin-bottom: 1.5rem;
     position: relative;
   }
@@ -46,7 +43,6 @@
   .content {
     font-size: 1.1rem;
     line-height: 1.8;
-    color: #2d3748;
     margin-top: 2rem;
   }
   
@@ -56,7 +52,6 @@
   
   .content p:first-of-type {
     font-size: 1.2rem;
-    color: #4a5568;
     font-weight: 500;
   }
   
@@ -64,7 +59,6 @@
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
-    color: #718096;
     font-size: 0.9rem;
   }
   
