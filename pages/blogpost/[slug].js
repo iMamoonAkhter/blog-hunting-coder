@@ -4,6 +4,7 @@ import styles from "@/styles/BlogPost.module.css";
 import Head from "next/head";
 import path from 'path';
 import { promises as fs } from 'fs';
+import Link from "next/link";
 
 const BlogPost = ({ blog, error }) => {
   const router = useRouter();
