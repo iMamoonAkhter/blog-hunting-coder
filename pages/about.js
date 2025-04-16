@@ -14,7 +14,7 @@ const About = () => {
           <h2 className={styles.sectionTitle}>Our Hunting Philosophy</h2>
           <div className={styles.sectionContent}>
             <p>At Hunting Coder, we approach programming like skilled trackers - patiently following the trail of bugs, strategically cornering performance issues, and bagging elegant solutions. Just as hunters understand their terrain, we master technologies to deliver precise results.</p>
-            <p>Our team consists of developers who thrive on the challenge of the hunt - whether it's tracking down memory leaks, stalking the perfect algorithm, or setting traps for elusive edge cases.</p>
+            <p>Our team consists of developers who thrive on the challenge of the hunt - whether it is tracking down memory leaks, stalking the perfect algorithm, or setting traps for elusive edge cases.</p>
           </div>
         </section>
 
