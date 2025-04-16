@@ -84,4 +84,10 @@
       gap: 0.5rem;
       align-items: center;
     }
+    .mainnav{
+      flex-direction: column;
+    }
+    .mainnav div{
+      margin-top: 1rem;
+    }
   }

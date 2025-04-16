@@ -54,6 +54,7 @@ a {
   html {
     color-scheme: dark;
   }
+ 
 
   :root:not(.dark) {
     --background: #0a0a0a;
@@ -61,3 +62,10 @@ a {
   }
 }
 
+@media (max-width: 768px) {
+  html,
+  body {
+    margin: 6.8rem auto 2rem;
+
+  }
+}

@@ -17,7 +17,7 @@ export function ThemeSwitcher() {
 
   const buttonStyle = {
     marginLeft: '1rem',
-    padding: '0.5rem',
+    padding: '0.5rem 0.8rem',
     borderRadius: '0.5rem',
     backgroundColor: isDark ? '#374151' : '#f3f4f6', // dark:hover:bg-gray-700 or light:hover:bg-gray-100
     color: isDark ? '#ffffff' : '#000000',
